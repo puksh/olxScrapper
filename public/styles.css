@@ -61,10 +61,10 @@ img {
     max-width: 100px;
 }
 
-/* Style for highlighted listings 
+/*Style for highlighted listings */
 .highlighted-ad {
     background-color: #23E5DB;
     position: relative;
     color: black;
     font-weight: bold;
-}*/
+}
