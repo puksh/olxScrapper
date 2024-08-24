@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OLX Custom Search</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="search-container">
+        <h1>OLX Custom Search</h1>
+        <input type="text" id="searchBox" placeholder="Enter your search query" />
+        <select id="sortOrder">
+            <option value="created_at:desc">Newest</option>
+            <option value="filter_float_price:asc">Cheapest</option>
+            <option value="filter_float_price:desc">Most Expensive</option>
+        </select>
+
+        <button id="searchButton">Search</button>
+    </div>
+
+    <div id="results"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
