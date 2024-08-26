@@ -1,4 +1,5 @@
-document.getElementById("searchButton").addEventListener("click", async function() {
+// Function to handle search logic
+async function performSearch() {
     const query = document.getElementById("searchBox").value.trim();
     const sortOrder = document.getElementById("sortOrder").value;
 
@@ -14,7 +15,28 @@ document.getElementById("searchButton").addEventListener("click", async function
     } else {
         alert("Please enter a search query!");
     }
+}
+
+// Search button click event listener
+document.getElementById("searchButton").addEventListener("click", performSearch);
+
+// Enter key event listener for searchBox
+document.getElementById("searchBox").addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+        event.preventDefault(); // Prevent default form submission behavior
+        performSearch();
+    }
 });
+
+// Function to show the spinner
+function showSpinner() {
+    document.getElementById('spinner').style.display = 'block';
+  }
+  
+  // Function to hide the spinner
+  function hideSpinner() {
+    document.getElementById('spinner').style.display = 'none';
+  }
 
 window.addEventListener('scroll', function() {
     const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
@@ -27,6 +49,7 @@ window.addEventListener('scroll', function() {
 });
 
 async function loadMoreResults() {
+    showSpinner();
     window.isLoading = true;
 
     const response = await fetch("/scrape", {
@@ -77,6 +100,7 @@ async function loadMoreResults() {
 }
 
 async function displayResults(listings) {
+    hideSpinner();
     const resultsDiv = document.getElementById("results");
 
     if (listings.length > 0) {
@@ -87,6 +111,7 @@ async function displayResults(listings) {
             const headerRow = document.createElement("tr");
             headerRow.innerHTML = `
                 <th>Title</th>
+                <th>Location & Date </th>
                 <th>Price</th>
                 <th>Image</th>
                 <th>Link</th>
@@ -104,7 +129,7 @@ async function displayResults(listings) {
                 .trim();
                 
             if (price.includes("do negocjacji")){
-                price = price.replace("do negocjacji", " do negocjacji").trim();
+                price = price.replace("do negocjacji", " 💸").trim();
             }
 
             //for some reason null is a text now
@@ -113,6 +138,11 @@ async function displayResults(listings) {
             const row = document.createElement("tr");
             row.innerHTML = `
                 <td>${featuredText+' '+listing.title}</td>
+                <td>
+                    ${listing.locationAndDate}
+                    <button class="locationButton">Check Distance</button>
+                    <div id="distanceDisplay"></div>
+                </td>
                 <td>${price}</td>
                 <td><img src="${listing.imageUrl}" alt="${listing.title}" /></td>
                 <td><a href="${listing.link}" target="_blank">View Listing</a></td>
