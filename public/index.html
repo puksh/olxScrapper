@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+        <!-- City Input -->
+    <input type="text" id="cityInput" placeholder="Enter your city">
+    <button id="findLocationButton">Find My Location</button>
+    
     <div class="search-container">
         <h1>OLX Custom Search</h1>
         <input type="text" id="searchBox" placeholder="Enter your search query" />
@@ -21,6 +25,18 @@
 
     <div id="results"></div>
 
+    <!-- SVG Spinner -->
+    <div id="spinner" style="display: none;">
+        <svg width="50" height="50" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="25" cy="25" r="20" stroke="#3498db" stroke-width="5" fill="none" stroke-linecap="round">
+            <animate attributeName="stroke-dasharray" values="1,200;100,200;1,200" dur="1.5s" repeatCount="indefinite" />
+            <animate attributeName="stroke-dashoffset" values="0; -15; -125" dur="1.5s" repeatCount="indefinite" />
+        </circle>
+        </svg>
+    </div>
+    
+            
     <script src="script.js"></script>
+    <script src="openroute.js"></script>
 </body>
 </html>

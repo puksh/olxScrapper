@@ -32,6 +32,7 @@ app.post('/scrape', async (req, res) => {
       const price = $(el).find("p[data-testid='ad-price']").text().trim() || null;
       let link = $(el).find("a").attr('href') || null;
       const featuredText = $(el).find("div[data-testid='adCard-featured']").text().trim() || null;
+      const locationAndDate = $(el).find("p[data-testid='location-date']").text().trim() || null;
 
       // Ensure link is an absolute URL
       if (link) {
@@ -43,35 +44,47 @@ app.post('/scrape', async (req, res) => {
         }
       }
 
-      let imageUrl = $(el).find("img").attr('src') || null;
+      const imageUrl = $(el).find("img").attr('src') || null;
 
-      if (imageUrl && imageUrl.includes('no_thumbnail')) {
-        // Add to queue for further processing
-        const task = imageQueue.add(async () => {
+      // Proceed only if the image URL is invalid and the link exists
+      if (imageUrl && imageUrl.includes('no_thumbnail') && link) {
+        // Create a task for concurrent processing
+        const task = async () => {
           try {
-            // Ensure link is an absolute URL before making a request
-            if (link) {
-              const linkResponse = await axios.get(link);
-              const linkHtml = linkResponse.data;
-              const $linkPage = cheerio.load(linkHtml);
-              imageUrl = $linkPage('meta[property="og:image"]').attr('content') ||
-                        $linkPage('link[rel="image_src"]').attr('href') ||
-                        '';
-              //console.log(`Fetched image URL for ${link}: ${imageUrl}`);
-              listings.push({ featuredText, title, price, imageUrl, link });
+            // Make the network request only if necessary
+            const { data: linkHtml } = await axios.get(link);
+
+            // Parse HTML with cheerio once and cache it
+            const $linkPage = cheerio.load(linkHtml);
+
+            // Fetch image URL from metadata, if available
+            const fetchedImageUrl = $linkPage('meta[property="og:image"]').attr('content') ||
+                                    $linkPage('link[rel="image_src"]').attr('href') ||
+                                    null;
+
+            if (fetchedImageUrl) {
+              listings.push({
+                featuredText,
+                title,
+                price,
+                imageUrl: fetchedImageUrl,  // Use fetched image URL
+                link,
+                locationAndDate
+              });
             }
           } catch (error) {
-            console.error('Error fetching image URL:', error);
+            console.error(`Error fetching image URL for link: ${link}`, error);
           }
-        });
+        };
+
+        // Push the task to the queue
         tasks.push(task);
-        imageUrl = null; // Temporarily set to null until image is fetched
       }
     });
 
     // Wait for all image processing tasks to complete
-    await Promise.all(tasks);
-
+    await Promise.all(tasks.map(task => task()));
+    
     res.json(listings);  // Send listings as JSON response
   } catch (error) {
     console.error('Error scraping the site:', error);
