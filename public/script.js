@@ -348,3 +348,25 @@ async function calculateDistanceMatrix(locations, profile = 'driving-car', units
     }
 }
 
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Check if dark mode is enabled in local storage
+    const isDarkMode = localStorage.getItem('darkMode') === 'true';
+    applyDarkMode(isDarkMode);
+});
+
+document.getElementById('darkModeToggle').addEventListener('click', () => {
+    // Get the current mode
+    const isDarkMode = document.body.classList.toggle('dark-mode');
+    
+    // Save the current mode to local storage
+    localStorage.setItem('darkMode', isDarkMode);
+});
+
+function applyDarkMode(isDarkMode) {
+    if (isDarkMode) {
+        document.body.classList.add('dark-mode');
+    } else {
+        document.body.classList.remove('dark-mode');
+    }
+}

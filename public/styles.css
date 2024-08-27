@@ -4,7 +4,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
+    padding-top: 40px;
 }
 
 /* Search bar */
@@ -57,3 +57,29 @@ img {
 }
 
 
+/* Top bar */
+.top-bar {
+    position: fixed;
+    top: 0;
+    padding: 1px;
+    width: 100%;
+    background-color: #333;
+    height: 24px;
+}
+
+/* Retro button style */
+#darkModeToggle {
+    background-color: #e0e0e0;
+    border: 2px solid #333;
+    color: #333;
+    font-size: 12px;
+    font-family: 'Courier New', Courier, monospace;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+/* Dark mode styles */
+body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+}
