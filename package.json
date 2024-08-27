@@ -7,7 +7,7 @@
   },
   "author": "pukash",
   "license": "MIT",
-  "description": "testing to create a better ssearch engine",
+  "description": "testing to create a better search engine",
   "dependencies": {
     "axios": "^1.7.5",
     "cheerio": "^1.0.0",

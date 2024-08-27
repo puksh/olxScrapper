@@ -3,4 +3,5 @@
 /server copy.js
 /server copy.mjs
 /thumbnail_test
-/bunServer.ts
+/bun_server.ts
+/bun.lockb
