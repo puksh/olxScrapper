@@ -5,22 +5,133 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OLX Custom Search</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="/Site-favicon.ico" type="image/x-icon">
 </head>
 <body>
+    <div class="search-bar-container">
+        <!-- Search Bar -->
+        <label>🔍</label>
+        <input type="text" id="searchBox" placeholder="Enter your search query">
+        
         <!-- City Input -->
-    <input type="text" id="cityInput" placeholder="Enter your city">
-    <button id="findLocationButton">Find My Location</button>
+        <label>🌆</label>
+        <input type="text" id="cityInput" placeholder="Enter your city">
+        <button id="findLocationButton">Find My Location</button>
     
-    <div class="search-container">
-        <h1>OLX Custom Search</h1>
-        <input type="text" id="searchBox" placeholder="Enter your search query" />
+        
+        <!-- Sorting -->
+        <label>🔽</label>
+        <label for="category-select">Sort:</label>
         <select id="sortOrder">
             <option value="created_at:desc">Newest</option>
             <option value="filter_float_price:asc">Cheapest</option>
             <option value="filter_float_price:desc">Most Expensive</option>
         </select>
 
-        <button id="searchButton">Search</button>
+        <!-- Categories List -->
+        <label>📂</label>
+        <div class="category-chooser">
+            <label for="category-select">Category:</label>
+            <select id="category-select" class="category-select">
+                <option value="">Wszystkie kategorie</option>
+                
+                <!-- Antyki i Kolekcje with subcategories -->
+                <optgroup label="Antyki i Kolekcje">
+                    <option value="4042">Antyki i Kolekcje</option>
+                    <option value="4042-396">Antyki</option>
+                    <option value="4042-517">Kolekcje</option>
+                    <option value="4042-64">Sztuka</option>
+                    <option value="4042-88">Rękodzieło</option>
+                </optgroup>
+
+                <!-- Motoryzacja with subcategories -->
+                <optgroup label="Motoryzacja">
+                    <option value="5">Motoryzacja</option>
+                </optgroup>
+
+                <!-- Nieruchomości with subcategories -->
+                <optgroup label="Nieruchomości">
+                    <option value="3">Nieruchomości</option>
+                </optgroup>
+
+                <!-- Praca with subcategories -->
+                <optgroup label="Praca">
+                    <option value="4">Praca</option>
+                </optgroup>
+
+                <!-- Dom i Ogród with subcategories -->
+                <optgroup label="Dom i Ogród">
+                    <option value="628">Dom i Ogród</option>
+                </optgroup>
+
+                <!-- Elektronika with subcategories -->
+                <optgroup label="Elektronika">
+                    <option value="99">Elektronika</option>
+                </optgroup>
+
+                <!-- Moda with subcategories -->
+                <optgroup label="Moda">
+                    <option value="87">Moda</option>
+                </optgroup>
+
+                <!-- Rolnictwo with subcategories -->
+                <optgroup label="Rolnictwo">
+                    <option value="757">Rolnictwo</option>
+                </optgroup>
+
+                <!-- Zwierzęta with subcategories -->
+                <optgroup label="Zwierzęta">
+                    <option value="103">Zwierzęta</option>
+                </optgroup>
+
+                <!-- Dla Dzieci with subcategories -->
+                <optgroup label="Dla Dzieci">
+                    <option value="88">Dla Dzieci</option>
+                </optgroup>
+
+                <!-- Sport i Hobby with subcategories -->
+                <optgroup label="Sport i Hobby">
+                    <option value="767">Sport i Hobby</option>
+                </optgroup>
+
+                <!-- Muzyka i Edukacja with subcategories -->
+                <optgroup label="Muzyka i Edukacja">
+                    <option value="751">Muzyka i Edukacja</option>
+                </optgroup>
+
+                <!-- Zdrowie i Uroda with subcategories -->
+                <optgroup label="Zdrowie i Uroda">
+                    <option value="3647">Zdrowie i Uroda</option>
+                </optgroup>
+
+                <!-- Usługi with subcategories -->
+                <optgroup label="Usługi">
+                    <option value="4371">Usługi</option>
+                </optgroup>
+
+                <!-- Noclegi with subcategories -->
+                <optgroup label="Noclegi">
+                    <option value="1816">Noclegi</option>
+                </optgroup>
+
+                <!-- Wypożyczalnia with subcategories -->
+                <optgroup label="Wypożyczalnia">
+                    <option value="3018">Wypożyczalnia</option>
+                </optgroup>
+
+                <!-- Dla Firm with subcategories -->
+                <optgroup label="Dla Firm">
+                    <option value="4269">Dla Firm</option>
+                </optgroup>
+
+                <!-- Oddam za darmo with subcategories -->
+                <optgroup label="Oddam za darmo">
+                    <option value="1151">Oddam za darmo</option>
+                </optgroup>
+
+            </select>
+            <button id="searchButton">Search</button>
+        </div>
     </div>
 
     <div id="results"></div>
@@ -37,6 +148,5 @@
     
             
     <script src="script.js"></script>
-    <script src="openroute.js"></script>
 </body>
 </html>
