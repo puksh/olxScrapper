@@ -1,6 +1,9 @@
 # OLXScrapper
 
-![image](https://github.com/user-attachments/assets/5708a6a7-1cb1-446d-a7f6-b17ec85bd215)
+![image](https://github.com/user-attachments/assets/38f3187b-bb4c-42a9-872d-35e01b55e5a7)
+
+
+<!-- Old style ![image](https://github.com/user-attachments/assets/5708a6a7-1cb1-446d-a7f6-b17ec85bd215)  -->
 
 OLXScrapper is a simple web scraper designed to enhance search capabilities for the OLX website. It allows you to search and extract relevant information from the OLX platform using a given query, providing a basic foundation for a better search engine.
 
