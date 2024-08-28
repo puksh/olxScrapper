@@ -2,7 +2,9 @@ import express from 'express';
 import axios from 'axios';
 import * as cheerio from 'cheerio';
 import PQueue from 'p-queue';
-import { URL } from 'url';
+import {
+  URL
+} from 'url';
 
 const app = express();
 app.use(express.static("public"));
@@ -11,21 +13,29 @@ app.use(express.json());
 const PORT = process.env.PORT || 3000;
 
 // Create a queue with concurrency control
-const imageQueue = new PQueue({ concurrency: 5 });
+const imageQueue = new PQueue({
+  concurrency: 5
+});
 
 app.post('/scrape', async (req, res) => {
-  const { query, page = 1, sortOrder = 'created_at:desc' } = req.body;
+  const {
+    query,
+    page = 1,
+    sortOrder = 'created_at:desc'
+  } = req.body;
   const searchUrl = `https://www.olx.pl/oferty/q-${encodeURIComponent(query)}/?search[order]=${sortOrder}&page=${page}`;
 
+  console.log(`Starting to scrape: ${searchUrl}`);
   try {
     // Fetch the HTML content of the search results page
     const response = await axios.get(searchUrl);
+    //console.log(`Successfully fetched page: ${searchUrl}`);
     const html = response.data;
     const $ = cheerio.load(html);
 
-    // Extract listings data
+    // Prepare to send the listings without images
     const listings = [];
-    const tasks = []; // Array to store tasks for processing images
+    let listingCount = 0; // Track the number of listings
 
     $("div[data-cy='l-card']").each((index, el) => {
       const title = $(el).find("h6").text().trim() || null;
@@ -44,51 +54,56 @@ app.post('/scrape', async (req, res) => {
         }
       }
 
-      const imageUrl = $(el).find("img").attr('src') || null;
+      //Thumbnail checking is done through proxy, but code is in client
+      const imageUrl = null;
 
-      // Proceed only if the image URL is invalid and the link exists
-      if (imageUrl && imageUrl.includes('no_thumbnail') && link) {
-        // Create a task for concurrent processing
-        const task = async () => {
-          try {
-            // Make the network request only if necessary
-            const { data: linkHtml } = await axios.get(link);
+      // Push listing data to the array (without processing the image yet)
+      listings.push({
+        featuredText,
+        title,
+        price,
+        imageUrl,
+        link,
+        locationAndDate
+      });
 
-            // Parse HTML with cheerio once and cache it
-            const $linkPage = cheerio.load(linkHtml);
-
-            // Fetch image URL from metadata, if available
-            const fetchedImageUrl = $linkPage('meta[property="og:image"]').attr('content') ||
-                                    $linkPage('link[rel="image_src"]').attr('href') ||
-                                    null;
-
-            if (fetchedImageUrl) {
-              listings.push({
-                featuredText,
-                title,
-                price,
-                imageUrl: fetchedImageUrl,  // Use fetched image URL
-                link,
-                locationAndDate
-              });
-            }
-          } catch (error) {
-            console.error(`Error fetching image URL for link: ${link}`, error);
-          }
-        };
-
-        // Push the task to the queue
-        tasks.push(task);
-      }
+      //console.log(`Extracted listing ${listingCount + 1}: ${title}`);
+      listingCount++;
     });
 
-    // Wait for all image processing tasks to complete
-    await Promise.all(tasks.map(task => task()));
-    
-    res.json(listings);  // Send listings as JSON response
+    //console.log(`Extracted ${listingCount} listings, sending them without images...`);
+
+    // Send the listings without images first
+    res.write(JSON.stringify({
+      listings
+    }) + '\n');
+    // Signal the end of the response
+    res.end();
+
   } catch (error) {
-    console.error('Error scraping the site:', error);
+    console.error('Error scraping the site:', error.message);
     res.status(500).send('Error scraping the site.');
+  }
+});
+
+// Proxy endpoint to fetch the content
+app.get('/proxy', async (req, res) => {
+  const {
+    url
+  } = req.query;
+
+  if (!url) {
+    return res.status(400).send('URL is required');
+  }
+
+  try {
+    const response = await axios.get(url, {
+      responseType: 'text'
+    });
+    res.send(response.data);
+  } catch (error) {
+    console.error(`Error fetching URL ${url}:`, error);
+    res.status(500).send('Error fetching URL');
   }
 });
 

@@ -8,10 +8,10 @@ body {
 }
 
 /* Search bar */
-.search-bar-container{
+.search-bar-container {
     display: flex;
     flex-direction: row;
-    flex-wrap:wrap;
+    flex-wrap: wrap;
     -ms-flex-wrap: wrap;
     align-items: stretch;
     height: 24px;
@@ -35,11 +35,14 @@ table {
     margin-top: 20px;
 }
 
-table, th, td {
+table,
+th,
+td {
     border: 1px solid #ddd;
 }
 
-th, td {
+th,
+td {
     padding: 10px;
     text-align: left;
 }
@@ -56,6 +59,9 @@ img {
     font-weight: bold;
 }
 
+.ad {
+    transition: height 0.3s ease, overflow 0.3s ease;
+}
 
 /* Top bar */
 .top-bar {
