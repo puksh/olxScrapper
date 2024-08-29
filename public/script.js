@@ -368,7 +368,34 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         updateAds();
       });
+      const customSelects = document.querySelectorAll('.custom-select');
+    
+    customSelects.forEach(customSelect => {
+        const selected = customSelect.querySelector('.select-selected');
+        const items = customSelect.querySelector('.select-items');
 
+        // Toggle the dropdown menu
+        selected.addEventListener('click', function() {
+            items.classList.toggle('select-hide');
+        });
+
+        // Close the dropdown if the user clicks outside of it
+        document.addEventListener('click', function(event) {
+            if (!customSelect.contains(event.target)) {
+                items.classList.add('select-hide');
+            }
+        });
+
+        // Handle item selection
+        items.querySelectorAll('.option').forEach(option => {
+            option.addEventListener('click', function() {
+                selected.textContent = this.textContent;
+                items.classList.add('select-hide');
+                items.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+    });
 });
 
 document.getElementById('darkModeToggle').addEventListener('click', () => {
