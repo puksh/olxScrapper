@@ -1,10 +1,8 @@
-import express from 'express';
-import axios from 'axios';
-import * as cheerio from 'cheerio';
-import PQueue from 'p-queue';
-import {
-  URL
-} from 'url';
+import express from "express";
+import axios from "axios";
+import * as cheerio from "cheerio";
+import PQueue from "p-queue";
+import { URL } from "url";
 
 const app = express();
 app.use(express.static("public"));
@@ -14,16 +12,14 @@ const PORT = process.env.PORT || 3000;
 
 // Create a queue with concurrency control
 const imageQueue = new PQueue({
-  concurrency: 5
+  concurrency: 5,
 });
 
-app.post('/scrape', async (req, res) => {
-  const {
-    query,
-    page = 1,
-    sortOrder = 'created_at:desc'
-  } = req.body;
-  const searchUrl = `https://www.olx.pl/oferty/q-${encodeURIComponent(query)}/?search[order]=${sortOrder}&page=${page}`;
+app.post("/scrape", async (req, res) => {
+  const { query, page = 1, sortOrder = "created_at:desc" } = req.body;
+  const searchUrl = `https://www.olx.pl/oferty/q-${encodeURIComponent(
+    query
+  )}/?search[order]=${sortOrder}&page=${page}`;
 
   console.log(`Starting to scrape: ${searchUrl}`);
   try {
@@ -39,17 +35,20 @@ app.post('/scrape', async (req, res) => {
 
     $("div[data-cy='l-card']").each((index, el) => {
       const title = $(el).find("h6").text().trim() || null;
-      const price = $(el).find("p[data-testid='ad-price']").text().trim() || null;
-      let link = $(el).find("a").attr('href') || null;
-      const featuredText = $(el).find("div[data-testid='adCard-featured']").text().trim() || null;
-      const locationAndDate = $(el).find("p[data-testid='location-date']").text().trim() || null;
+      const price =
+        $(el).find("p[data-testid='ad-price']").text().trim() || null;
+      let link = $(el).find("a").attr("href") || null;
+      const featuredText =
+        $(el).find("div[data-testid='adCard-featured']").text().trim() || null;
+      const locationAndDate =
+        $(el).find("p[data-testid='location-date']").text().trim() || null;
 
       // Ensure link is an absolute URL
       if (link) {
         try {
           link = new URL(link, searchUrl).href;
         } catch (error) {
-          console.error('Invalid link URL:', link);
+          console.error("Invalid link URL:", link);
           link = null; // If URL conversion fails, set link to null
         }
       }
@@ -64,7 +63,7 @@ app.post('/scrape', async (req, res) => {
         price,
         imageUrl,
         link,
-        locationAndDate
+        locationAndDate,
       });
 
       //console.log(`Extracted listing ${listingCount + 1}: ${title}`);
@@ -74,36 +73,35 @@ app.post('/scrape', async (req, res) => {
     //console.log(`Extracted ${listingCount} listings, sending them without images...`);
 
     // Send the listings without images first
-    res.write(JSON.stringify({
-      listings
-    }) + '\n');
+    res.write(
+      JSON.stringify({
+        listings,
+      }) + "\n"
+    );
     // Signal the end of the response
     res.end();
-
   } catch (error) {
-    console.error('Error scraping the site:', error.message);
-    res.status(500).send('Error scraping the site.');
+    console.error("Error scraping the site:", error.message);
+    res.status(500).send("Error scraping the site.");
   }
 });
 
 // Proxy endpoint to fetch the content
-app.get('/proxy', async (req, res) => {
-  const {
-    url
-  } = req.query;
+app.get("/proxy", async (req, res) => {
+  const { url } = req.query;
 
   if (!url) {
-    return res.status(400).send('URL is required');
+    return res.status(400).send("URL is required");
   }
 
   try {
     const response = await axios.get(url, {
-      responseType: 'text'
+      responseType: "text",
     });
     res.send(response.data);
   } catch (error) {
     console.error(`Error fetching URL ${url}:`, error);
-    res.status(500).send('Error fetching URL');
+    res.status(500).send("Error fetching URL");
   }
 });
 

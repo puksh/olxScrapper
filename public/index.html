@@ -1,216 +1,236 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>OLX Custom Search</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="icon" href="/Site-favicon.ico" type="image/x-icon">
-</head>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" href="/Site-favicon.ico" type="image/x-icon" />
+  </head>
 
-<body>
+  <body>
     <div class="top-bar">
-        <button id="darkModeToggle">🌙 Toggle Dark Mode</button>
-        <button id="toggleAdsButton">Hide Highlighted Ads</button>
+      <button id="darkModeToggle">🌙 Toggle Dark Mode</button>
+      <button id="toggleAdsButton">Hide Highlighted Ads</button>
     </div>
     <div class="search-bar-container">
-        <!-- Search Bar -->
-        <label>🔍</label>
-        <input type="text" id="searchBox" placeholder="Enter your search query">
+      <!-- Search Bar -->
+      <label>🔍</label>
+      <input type="text" id="searchBox" placeholder="Enter your search query" />
 
-        <!-- City Input -->
-        <label>🌆</label>
-        <input type="text" id="cityInput" placeholder="Enter your city">
-        <button id="findLocationButton">Find My Location</button>
+      <!-- City Input -->
+      <label>🌆</label>
+      <input type="text" id="cityInput" placeholder="Enter your city" />
+      <button id="findLocationButton">Find My Location</button>
 
+      <!-- Sorting -->
+      <label>🔽</label>
+      <label for="category-select">Sort:</label>
+      <select id="sortOrder">
+        <option value="created_at:desc">Newest</option>
+        <option value="filter_float_price:asc">Cheapest</option>
+        <option value="filter_float_price:desc">Most Expensive</option>
+      </select>
 
-        <!-- Sorting -->
-        <label>🔽</label>
-        <label for="category-select">Sort:</label>
-        <select id="sortOrder">
-            <option value="created_at:desc">Newest</option>
-            <option value="filter_float_price:asc">Cheapest</option>
-            <option value="filter_float_price:desc">Most Expensive</option>
+      <!-- Categories List -->
+      <label>📂</label>
+      <div class="category-chooser">
+        <label for="category-select">Category:</label>
+        <select id="category-select" class="category-select">
+          <option value="">Wszystkie kategorie</option>
+
+          <!-- Antyki i Kolekcje with subcategories -->
+          <optgroup label="Antyki i Kolekcje">
+            <option value="4042">Antyki i Kolekcje</option>
+            <option value="4042-396">Antyki</option>
+            <option value="4042-517">Kolekcje</option>
+            <option value="4042-64">Sztuka</option>
+            <option value="4042-88">Rękodzieło</option>
+          </optgroup>
+
+          <!-- Motoryzacja with subcategories -->
+          <optgroup label="Motoryzacja">
+            <option value="5">Motoryzacja</option>
+          </optgroup>
+
+          <!-- Nieruchomości with subcategories -->
+          <optgroup label="Nieruchomości">
+            <option value="3">Nieruchomości</option>
+          </optgroup>
+
+          <!-- Praca with subcategories -->
+          <optgroup label="Praca">
+            <option value="4">Praca</option>
+          </optgroup>
+
+          <!-- Dom i Ogród with subcategories -->
+          <optgroup label="Dom i Ogród">
+            <option value="628">Dom i Ogród</option>
+          </optgroup>
+
+          <!-- Elektronika with subcategories -->
+          <optgroup label="Elektronika">
+            <option value="99-1">Fotografia</option>
+            <option value="99-2">Gry i Konsole</option>
+            <option value="komputery">Komputery</option>
+            <option value="akcesoria-komputerowe">Akcesoria komputerowe</option>
+            <option value="dyski-zewnetrzne">Dyski zewnetrzne</option>
+            <option value="glosniki-komputerowe">Glosniki komputerowe</option>
+            <option value="kable-i-przejsciowki">Kable i przejsciowki</option>
+            <option value="kamerki-internetowe">Kamerki internetowe</option>
+            <option value="klawiatury">Klawiatury</option>
+            <option value="mikrofony">Mikrofony</option>
+            <option value="myszki">Myszki</option>
+            <option value="pendrive">Pendrive</option>
+            <option value="podkladki-i-stojaki">Podkladki i stojaki</option>
+            <option value="sluchawki">Sluchawki</option>
+            <option value="torby-i-etui">Torby i etui</option>
+            <option value="pozostale">Pozostale</option>
+            <option value="drukarki">Drukarki i skanery</option>
+            <option value="stacjonarne">Komputery stacjonarne</option>
+            <option value="laptopy">Laptopy</option>
+            <option value="monitory">Monitory</option>
+            <option value="oprogramowanie">Oprogramowanie</option>
+            <option value="podzespoly">Podzespoły i części</option>
+            <option value="tablety">Tablety</option>
+            <option value="sieciowe">Urządzenia sieciowe</option>
+            <option value="pozostale">Pozostałe</option>
+
+            <option value="99-4">Smartwatche i opaski</option>
+            <option value="99-5">Sprzęt AGD</option>
+            <option value="99-6">Sprzęt audio</option>
+            <option value="99-7">Sprzęt video</option>
+            <option value="99-8">Telefony</option>
+            <option value="99-9">TV</option>
+            <option value="99-10">Pozostała elektronika</option>
+            <option value="99-11">Sprzęt car audio</option>
+            <option value="99-12">
+              Serwis i naprawa RTV, AGD, Elektronika
+            </option>
+          </optgroup>
+
+          <!-- Moda with subcategories -->
+          <optgroup label="Moda">
+            <option value="87">Moda</option>
+          </optgroup>
+
+          <!-- Rolnictwo with subcategories -->
+          <optgroup label="Rolnictwo">
+            <option value="757">Rolnictwo</option>
+          </optgroup>
+
+          <!-- Zwierzęta with subcategories -->
+          <optgroup label="Zwierzęta">
+            <option value="103">Zwierzęta</option>
+          </optgroup>
+
+          <!-- Dla Dzieci with subcategories -->
+          <optgroup label="Dla Dzieci">
+            <option value="88">Dla Dzieci</option>
+          </optgroup>
+
+          <!-- Sport i Hobby with subcategories -->
+          <optgroup label="Sport i Hobby">
+            <option value="767">Sport i Hobby</option>
+          </optgroup>
+
+          <!-- Muzyka i Edukacja with subcategories -->
+          <optgroup label="Muzyka i Edukacja">
+            <option value="751">Muzyka i Edukacja</option>
+          </optgroup>
+
+          <!-- Zdrowie i Uroda with subcategories -->
+          <optgroup label="Zdrowie i Uroda">
+            <option value="3647">Zdrowie i Uroda</option>
+          </optgroup>
+
+          <!-- Usługi with subcategories -->
+          <optgroup label="Usługi">
+            <option value="4371">Usługi</option>
+          </optgroup>
+
+          <!-- Noclegi with subcategories -->
+          <optgroup label="Noclegi">
+            <option value="1816">Noclegi</option>
+          </optgroup>
+
+          <!-- Wypożyczalnia with subcategories -->
+          <optgroup label="Wypożyczalnia">
+            <option value="3018">Wypożyczalnia</option>
+          </optgroup>
+
+          <!-- Dla Firm with subcategories -->
+          <optgroup label="Dla Firm">
+            <option value="4269">Dla Firm</option>
+          </optgroup>
+
+          <!-- Oddam za darmo with subcategories -->
+          <optgroup label="Oddam za darmo">
+            <option value="1151">Oddam za darmo</option>
+          </optgroup>
         </select>
-
-        <!-- Categories List -->
-        <label>📂</label>
-        <div class="category-chooser">
-            <label for="category-select">Category:</label>
-            <select id="category-select" class="category-select">
-                <option value="">Wszystkie kategorie</option>
-
-                <!-- Antyki i Kolekcje with subcategories -->
-                <optgroup label="Antyki i Kolekcje">
-                    <option value="4042">Antyki i Kolekcje</option>
-                    <option value="4042-396">Antyki</option>
-                    <option value="4042-517">Kolekcje</option>
-                    <option value="4042-64">Sztuka</option>
-                    <option value="4042-88">Rękodzieło</option>
-                </optgroup>
-
-                <!-- Motoryzacja with subcategories -->
-                <optgroup label="Motoryzacja">
-                    <option value="5">Motoryzacja</option>
-                </optgroup>
-
-                <!-- Nieruchomości with subcategories -->
-                <optgroup label="Nieruchomości">
-                    <option value="3">Nieruchomości</option>
-                </optgroup>
-
-                <!-- Praca with subcategories -->
-                <optgroup label="Praca">
-                    <option value="4">Praca</option>
-                </optgroup>
-
-                <!-- Dom i Ogród with subcategories -->
-                <optgroup label="Dom i Ogród">
-                    <option value="628">Dom i Ogród</option>
-                </optgroup>
-
-                <!-- Elektronika with subcategories -->
-                <optgroup label="Elektronika">
-                    <option value="99">Elektronika</option>
-                    <option value="99-1">Fotografia</option>
-                    <option value="99-2">Gry i Konsole</option>
-                    <option value="komputery">Komputery</option>
-                      <option value="akcesoria-komputerowe">Akcesoria komputerowe</option>
-                        <option value="akcesoria-komputerowe-dyski-zewnetrzne">   Dyski zewnetrzne</option>
-                        <option value="akcesoria-komputerowe-glosniki-komputerowe">   Glosniki komputerowe</option>
-                        <option value="akcesoria-komputerowe-kable-i-przejsciowki">   Kable i przejsciowki</option>
-                        <option value="akcesoria-komputerowe-kamerki-internetowe">   Kamerki internetowe</option>
-                        <option value="akcesoria-komputerowe-klawiatury">   Klawiatury</option>
-                        <option value="akcesoria-komputerowe-mikrofony">   Mikrofony</option>
-                        <option value="akcesoria-komputerowe-myszki">   Myszki</option>
-                        <option value="akcesoria-komputerowe-pendrive">   Pendrive</option>
-                        <option value="akcesoria-komputerowe-podkladki-i-stojaki">   Podkladki i stojaki</option>
-                        <option value="akcesoria-komputerowe-sluchawki">   Sluchawki</option>
-                        <option value="akcesoria-komputerowe-torby-i-etui">   Torby i etui</option>
-                        <option value="akcesoria-komputerowe-pozostale">   Pozostale</option>
-                        <option value="komputery-drukarki">   Drukarki i skanery</option>
-                        <option value="komputery-stacjonarne">   Komputery stacjonarne</option>
-                        <option value="komputery-laptopy">   Laptopy</option>
-                        <option value="komputery-monitory">   Monitory</option>
-                        <option value="komputery-oprogramowanie">   Oprogramowanie</option>
-                        <option value="komputery-podzespoly">   Podzespoły i części</option>
-                        <option value="komputery-tablety">   Tablety</option>
-                        <option value="komputery-sieciowe">   Urządzenia sieciowe</option>
-                        <option value="komputery-pozostale">   Pozostałe</option>
-                        
-                    <option value="99-4">Smartwatche i opaski</option>
-                    <option value="99-5">Sprzęt AGD</option>
-                    <option value="99-6">Sprzęt audio</option>
-                    <option value="99-7">Sprzęt video</option>
-                    <option value="99-8">Telefony</option>
-                    <option value="99-9">TV</option>
-                    <option value="99-10">Pozostała elektronika</option>
-                    <option value="99-11">Sprzęt car audio</option>
-                    <option value="99-12">Serwis i naprawa RTV, AGD, Elektronika</option>
-                </optgroup>
-
-                <!-- Moda with subcategories -->
-                <optgroup label="Moda">
-                    <option value="87">Moda</option>
-                </optgroup>
-
-                <!-- Rolnictwo with subcategories -->
-                <optgroup label="Rolnictwo">
-                    <option value="757">Rolnictwo</option>
-                </optgroup>
-
-                <!-- Zwierzęta with subcategories -->
-                <optgroup label="Zwierzęta">
-                    <option value="103">Zwierzęta</option>
-                </optgroup>
-
-                <!-- Dla Dzieci with subcategories -->
-                <optgroup label="Dla Dzieci">
-                    <option value="88">Dla Dzieci</option>
-                </optgroup>
-
-                <!-- Sport i Hobby with subcategories -->
-                <optgroup label="Sport i Hobby">
-                    <option value="767">Sport i Hobby</option>
-                </optgroup>
-
-                <!-- Muzyka i Edukacja with subcategories -->
-                <optgroup label="Muzyka i Edukacja">
-                    <option value="751">Muzyka i Edukacja</option>
-                </optgroup>
-
-                <!-- Zdrowie i Uroda with subcategories -->
-                <optgroup label="Zdrowie i Uroda">
-                    <option value="3647">Zdrowie i Uroda</option>
-                </optgroup>
-
-                <!-- Usługi with subcategories -->
-                <optgroup label="Usługi">
-                    <option value="4371">Usługi</option>
-                </optgroup>
-
-                <!-- Noclegi with subcategories -->
-                <optgroup label="Noclegi">
-                    <option value="1816">Noclegi</option>
-                </optgroup>
-
-                <!-- Wypożyczalnia with subcategories -->
-                <optgroup label="Wypożyczalnia">
-                    <option value="3018">Wypożyczalnia</option>
-                </optgroup>
-
-                <!-- Dla Firm with subcategories -->
-                <optgroup label="Dla Firm">
-                    <option value="4269">Dla Firm</option>
-                </optgroup>
-
-                <!-- Oddam za darmo with subcategories -->
-                <optgroup label="Oddam za darmo">
-                    <option value="1151">Oddam za darmo</option>
-                </optgroup>
-
-            </select>
-            <div class="custom-select-wrapper">
-                <div class="custom-select">
-                    <div class="select-selected">Select an option</div>
-                    <div class="select-items select-hide">
-                        <div class="option">Elektronika
-                            <div class="nested-items select-hide">
-                                <div class="option">Komputery
-                                    <div class="nested-items select-hide">
-                                        <div class="option">Akcesoria komputerowe</div>
-                                        <div class="option">Dyski zewnętrzne</div>
-                                    </div>
-                                </div>
-                                <div class="option">Fotografia</div>
-                                <div class="option">Gry i Konsole</div>
-                            </div>
-                        </div>
-                        <div class="option">Home Appliances</div>
-                        <div class="option">Furniture</div>
+        <div class="custom-select-wrapper">
+          <div class="custom-select">
+            <div class="select-selected">Select an option</div>
+            <div class="select-items select-hide">
+              <div class="option">
+                Elektronika
+                <div class="nested-items select-hide">
+                  <div class="option">
+                    Komputery
+                    <div class="nested-items select-hide">
+                      <div class="option">Akcesoria komputerowe</div>
+                      <div class="option">Dyski zewnętrzne</div>
                     </div>
+                  </div>
+                  <div class="option">Fotografia</div>
+                  <div class="option">Gry i Konsole</div>
                 </div>
+              </div>
+              <div class="option">Home Appliances</div>
+              <div class="option">Furniture</div>
             </div>
-            <button id="searchButton">Search</button>
+          </div>
         </div>
+        <button id="searchButton">Search</button>
+      </div>
     </div>
 
     <div id="results"></div>
 
     <!-- SVG Spinner -->
-    <div id="spinner" style="display: none;">
-        <svg width="50" height="50" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="25" cy="25" r="20" stroke="#3498db" stroke-width="5" fill="none" stroke-linecap="round">
-                <animate attributeName="stroke-dasharray" values="1,200;100,200;1,200" dur="1.5s"
-                    repeatCount="indefinite" />
-                <animate attributeName="stroke-dashoffset" values="0; -15; -125" dur="1.5s" repeatCount="indefinite" />
-            </circle>
-        </svg>
+    <div id="spinner" style="display: none">
+      <svg
+        width="50"
+        height="50"
+        viewBox="0 0 50 50"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <circle
+          cx="25"
+          cy="25"
+          r="20"
+          stroke="#3498db"
+          stroke-width="5"
+          fill="none"
+          stroke-linecap="round"
+        >
+          <animate
+            attributeName="stroke-dasharray"
+            values="1,200;100,200;1,200"
+            dur="1.5s"
+            repeatCount="indefinite"
+          />
+          <animate
+            attributeName="stroke-dashoffset"
+            values="0; -15; -125"
+            dur="1.5s"
+            repeatCount="indefinite"
+          />
+        </circle>
+      </svg>
     </div>
 
-
     <script src="script.js"></script>
-</body>
-
+  </body>
 </html>

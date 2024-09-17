@@ -1,153 +1,152 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 40px;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 40px;
 }
 
 /* Search bar */
 .search-bar-container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    -ms-flex-wrap: wrap;
-    align-items: stretch;
-    height: 24px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  align-items: stretch;
+  height: 24px;
 }
 
 /* Buttons */
 button {
-    cursor: pointer;
+  cursor: pointer;
 }
-
 
 /* Results */
 #results {
-    width: 100%;
-    max-width: 800px;
+  width: 100%;
+  max-width: 800px;
 }
 
 table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
 }
 
 table,
 th,
 td {
-    border: 1px solid #ddd;
+  border: 1px solid #ddd;
 }
 
 th,
 td {
-    padding: 10px;
-    text-align: left;
+  padding: 10px;
+  text-align: left;
 }
 
 img {
-    max-width: 100px;
+  max-width: 100px;
 }
 
 /*Style for highlighted listings */
 .highlighted-ad {
-    background-color: #23E5DB;
-    position: relative;
-    color: black;
-    font-weight: bold;
+  background-color: #23e5db;
+  position: relative;
+  color: black;
+  font-weight: bold;
 }
 
 .ad {
-    transition: height 0.3s ease, overflow 0.3s ease;
+  transition: height 0.3s ease, overflow 0.3s ease;
 }
 
 /* Top bar */
 .top-bar {
-    position: fixed;
-    top: 0;
-    padding: 1px;
-    width: 100%;
-    background-color: #333;
-    height: 24px;
+  position: fixed;
+  top: 0;
+  padding: 1px;
+  width: 100%;
+  background-color: #333;
+  height: 24px;
 }
 
 /* Retro button style */
 #darkModeToggle {
-    background-color: #e0e0e0;
-    border: 2px solid #333;
-    color: #333;
-    font-size: 12px;
-    font-family: 'Courier New', Courier, monospace;
-    text-transform: uppercase;
-    cursor: pointer;
+  background-color: #e0e0e0;
+  border: 2px solid #333;
+  color: #333;
+  font-size: 12px;
+  font-family: "Courier New", Courier, monospace;
+  text-transform: uppercase;
+  cursor: pointer;
 }
 
 /* Dark mode styles */
 body.dark-mode {
-    background-color: #121212;
-    color: #e0e0e0;
+  background-color: #121212;
+  color: #e0e0e0;
 }
 
 /* Category menu styling */
 .custom-select-wrapper {
-    position: relative;
-    display: inline-block;
-    width: 200px;
+  position: relative;
+  display: inline-block;
+  width: 200px;
 }
 
 .custom-select {
-    position: relative;
-    display: block;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    color:#121212;
-    border-radius: 4px;
-    cursor: pointer;
-    font-family: Arial, sans-serif;
+  position: relative;
+  display: block;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  color: #121212;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: Arial, sans-serif;
 }
 
 /* Style for the selected item */
 .select-selected {
-    padding: 8px;
-    border-radius: 4px;
-    box-sizing: border-box;
-    background-color: #f9f9f9;
+  padding: 8px;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: #f9f9f9;
 }
 
 /* Style for the dropdown list */
 .select-items {
-    position: absolute;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 99;
-    width: 100%;
-    box-sizing: border-box;
-    max-height: 200px;
-    overflow-y: auto;
+  position: absolute;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 99;
+  width: 100%;
+  box-sizing: border-box;
+  max-height: 200px;
+  overflow-y: auto;
 }
 
 /* Hide the dropdown by default */
 .select-hide {
-    display: none;
+  display: none;
 }
 
 /* Style for each item in the dropdown */
 .option {
-    color:#121212;
-    padding: 8px;
-    cursor: pointer;
+  color: #121212;
+  padding: 8px;
+  cursor: pointer;
 }
 
 /* Hover effect for options */
 .option:hover {
-    background-color: #f1f1f1;
+  background-color: #f1f1f1;
 }
 
 /* Optional: style for the selected item in the dropdown */
 .option.selected {
-    background-color: #d9d9d9;
+  background-color: #d9d9d9;
 }
